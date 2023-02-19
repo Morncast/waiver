@@ -6,306 +6,17 @@
 <body>
   <%- include('partials/masthead') %>
   <div class="container">
-    <p class="intro">Fill out this form to sign the example agreement. PactMaker automatically generates an example agreement <a href="/example.pdf" target="_blank">here</a>.</p>
+    <h2>Event Liability Release</h2>
+
+    <p>Below is an example copy of the liability release, it is also available at <a href="/example.pdf">/example.pdf</a><br><br> After that there is a form which will allow you to sign the waiver</p>
+
+    <iframe class="intro" src="/example.pdf" width="100%" height="300"></iframe>
 
     <form action="/sign" method="POST">
+      <h3>Participant</h3>
       <div class="form-row">
         <div class="form-label">
-          <label for="company">What’s the name of your company?</label>
-        </div>
-        <div class="form-field">
-          <input type="text"
-                 id="company"
-                 name="company"
-                 class="c-input"
-                 size="40"
-                 maxlength="100"
-                 placeholder="<%= exampleData.company %>"
-                 oninvalid="this.setCustomValidity('Please enter your company name.')"
-                 oninput="setCustomValidity('')"
-                 required>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-label">
-          <label for="role">What’s your role at this company?</label>
-        </div>
-        <div class="form-field">
-          <input type="text"
-                 id="role"
-                 name="role"
-                 class="c-input"
-                 size="40"
-                 maxlength="100"
-                 placeholder="<%= exampleData.role %>"
-                 oninvalid="this.setCustomValidity('Please enter your name.')"
-                 oninput="setCustomValidity('')"
-                 required>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-label">
-          <label for="country">What country does your company operate in?</label>
-        </div>
-        <div class="form-field">
-          <select id="country"
-                  name="country"
-                  class="c-select"
-                  oninvalid="this.setCustomValidity('Please select the country your company operates in.')"
-                  oninput="setCustomValidity('')"
-                  required>
-            <option value="" selected>Please select a country</option>
-            <option>Afghanistan</option>
-            <option>Åland Islands</option>
-            <option>Albania</option>
-            <option>Algeria</option>
-            <option>American Samoa</option>
-            <option>Andorra</option>
-            <option>Angola</option>
-            <option>Anguilla</option>
-            <option>Antarctica</option>
-            <option>Antigua and Barbuda</option>
-            <option>Argentina</option>
-            <option>Armenia</option>
-            <option>Aruba</option>
-            <option>Australia</option>
-            <option>Austria</option>
-            <option>Azerbaijan</option>
-            <option>Bahamas</option>
-            <option>Bahrain</option>
-            <option>Bangladesh</option>
-            <option>Barbados</option>
-            <option>Belarus</option>
-            <option>Belgium</option>
-            <option>Belize</option>
-            <option>Benin</option>
-            <option>Bermuda</option>
-            <option>Bhutan</option>
-            <option>Bolivia</option>
-            <option>Bonaire</option>
-            <option>Bosnia and Herzegovina</option>
-            <option>Botswana</option>
-            <option>Bouvet Island</option>
-            <option>Brazil</option>
-            <option>Brunei Darussalam</option>
-            <option>Bulgaria</option>
-            <option>Burkina Faso</option>
-            <option>Burundi</option>
-            <option>Cambodia</option>
-            <option>Cameroon</option>
-            <option>Canada</option>
-            <option>Cape Verde</option>
-            <option>Cayman Islands</option>
-            <option>Central African Republic</option>
-            <option>Chad</option>
-            <option>Chile</option>
-            <option>China</option>
-            <option>Christmas Island</option>
-            <option>Cocos Islands</option>
-            <option>Colombia</option>
-            <option>Comoros</option>
-            <option>Congo</option>
-            <option>Congo</option>
-            <option>Cook Islands</option>
-            <option>Costa Rica</option>
-            <option>Côte d'Ivoire</option>
-            <option>Croatia</option>
-            <option>Cuba</option>
-            <option>Curaçao</option>
-            <option>Cyprus</option>
-            <option>Czech Republic</option>
-            <option>Denmark</option>
-            <option>Djibouti</option>
-            <option>Dominica</option>
-            <option>Dominican Republic</option>
-            <option>Ecuador</option>
-            <option>Egypt</option>
-            <option>El Salvador</option>
-            <option>Equatorial Guinea</option>
-            <option>Eritrea</option>
-            <option>Estonia</option>
-            <option>Ethiopia</option>
-            <option>Falkland Islands (Malvinas)</option>
-            <option>Faroe Islands</option>
-            <option>Fiji</option>
-            <option>Finland</option>
-            <option>France</option>
-            <option>French Guiana</option>
-            <option>French Polynesia</option>
-            <option>Gabon</option>
-            <option>Gambia</option>
-            <option>Georgia</option>
-            <option>Germany</option>
-            <option>Ghana</option>
-            <option>Gibraltar</option>
-            <option>Greece</option>
-            <option>Greenland</option>
-            <option>Grenada</option>
-            <option>Guadeloupe</option>
-            <option>Guam</option>
-            <option>Guatemala</option>
-            <option>Guernsey</option>
-            <option>Guinea</option>
-            <option>Guinea-Bissau</option>
-            <option>Guyana</option>
-            <option>Haiti</option>
-            <option>Honduras</option>
-            <option>Hong Kong</option>
-            <option>Hungary</option>
-            <option>Iceland</option>
-            <option>India</option>
-            <option>Indonesia</option>
-            <option>Iran</option>
-            <option>Iraq</option>
-            <option>Ireland</option>
-            <option>Isle of Man</option>
-            <option>Israel</option>
-            <option>Italy</option>
-            <option>Jamaica</option>
-            <option>Japan</option>
-            <option>Jersey</option>
-            <option>Jordan</option>
-            <option>Kazakhstan</option>
-            <option>Kenya</option>
-            <option>Kiribati</option>
-            <option>Korea</option>
-            <option>Kuwait</option>
-            <option>Kyrgyzstan</option>
-            <option>Lao People's Democratic Republic</option>
-            <option>Latvia</option>
-            <option>Lebanon</option>
-            <option>Lesotho</option>
-            <option>Liberia</option>
-            <option>Libya</option>
-            <option>Liechtenstein</option>
-            <option>Lithuania</option>
-            <option>Luxembourg</option>
-            <option>Macao</option>
-            <option>Macedonia</option>
-            <option>Madagascar</option>
-            <option>Malawi</option>
-            <option>Malaysia</option>
-            <option>Maldives</option>
-            <option>Mali</option>
-            <option>Malta</option>
-            <option>Marshall Islands</option>
-            <option>Martinique</option>
-            <option>Mauritania</option>
-            <option>Mauritius</option>
-            <option>Mayotte</option>
-            <option>Mexico</option>
-            <option>Micronesia</option>
-            <option>Moldova</option>
-            <option>Monaco</option>
-            <option>Mongolia</option>
-            <option>Montenegro</option>
-            <option>Montserrat</option>
-            <option>Morocco</option>
-            <option>Mozambique</option>
-            <option>Myanmar</option>
-            <option>Namibia</option>
-            <option>Nauru</option>
-            <option>Nepal</option>
-            <option>Netherlands</option>
-            <option>New Caledonia</option>
-            <option>New Zealand</option>
-            <option>Nicaragua</option>
-            <option>Niger</option>
-            <option>Nigeria</option>
-            <option>Niue</option>
-            <option>Norfolk Island</option>
-            <option>Northern Mariana Islands</option>
-            <option>Norway</option>
-            <option>Oman</option>
-            <option>Pakistan</option>
-            <option>Palau</option>
-            <option>Panama</option>
-            <option>Papua New Guinea</option>
-            <option>Paraguay</option>
-            <option>Peru</option>
-            <option>Philippines</option>
-            <option>Pitcairn</option>
-            <option>Poland</option>
-            <option>Portugal</option>
-            <option>Puerto Rico</option>
-            <option>Qatar</option>
-            <option>Réunion</option>
-            <option>Romania</option>
-            <option>Russian Federation</option>
-            <option>Rwanda</option>
-            <option>Saint Barthélemy</option>
-            <option>Saint Helena</option>
-            <option>Saint Kitts and Nevis</option>
-            <option>Saint Lucia</option>
-            <option>Saint Martin (French part)</option>
-            <option>Saint Pierre and Miquelon</option>
-            <option>Saint Vincent and the Grenadines</option>
-            <option>Samoa</option>
-            <option>San Marino</option>
-            <option>Sao Tome and Principe</option>
-            <option>Saudi Arabia</option>
-            <option>Senegal</option>
-            <option>Serbia</option>
-            <option>Seychelles</option>
-            <option>Sierra Leone</option>
-            <option>Singapore</option>
-            <option>Sint Maarten (Dutch part)</option>
-            <option>Slovakia</option>
-            <option>Slovenia</option>
-            <option>Solomon Islands</option>
-            <option>Somalia</option>
-            <option>South Africa</option>
-            <option>South Georgia and the South Sandwich Islands</option>
-            <option>South Sudan</option>
-            <option>Spain</option>
-            <option>Sri Lanka</option>
-            <option>Sudan</option>
-            <option>Suriname</option>
-            <option>Svalbard and Jan Mayen</option>
-            <option>Swaziland</option>
-            <option>Sweden</option>
-            <option>Switzerland</option>
-            <option>Syrian Arab Republic</option>
-            <option>Taiwan</option>
-            <option>Tajikistan</option>
-            <option>Tanzania</option>
-            <option>Thailand</option>
-            <option>Timor-Leste</option>
-            <option>Togo</option>
-            <option>Tokelau</option>
-            <option>Tonga</option>
-            <option>Trinidad and Tobago</option>
-            <option>Tunisia</option>
-            <option>Turkey</option>
-            <option>Turkmenistan</option>
-            <option>Turks and Caicos Islands</option>
-            <option>Tuvalu</option>
-            <option>Uganda</option>
-            <option>Ukraine</option>
-            <option>United Arab Emirates</option>
-            <option>United Kingdom</option>
-            <option>United States</option>
-            <option>United States Minor Outlying Islands</option>
-            <option>Uruguay</option>
-            <option>Uzbekistan</option>
-            <option>Vanuatu</option>
-            <option>Venezuela</option>
-            <option>Vietnam</option>
-            <option>Virgin Islands</option>
-            <option>Wallis and Futuna</option>
-            <option>Western Sahara</option>
-            <option>Yemen</option>
-            <option>Zambia</option>
-            <option>Zimbabwe</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-label">
-          <label for="name">What’s your full name?</label>
+          <label for="name">What's your name?</label>
         </div>
         <div class="form-field">
           <input type="text"
@@ -315,7 +26,7 @@
                  size="40"
                  maxlength="100"
                  placeholder="<%= exampleData.name %>"
-                 oninvalid="this.setCustomValidity('Please enter your name.')"
+                 oninvalid="this.setCustomValidity('Please enter the participant\'s full name')"
                  oninput="setCustomValidity('')"
                  required>
         </div>
@@ -336,22 +47,202 @@
                  oninput="setCustomValidity('')"
                  required>
         </div>
-        <p class="form-comment">PactMaker sends out a copy of the agreement, so be sure to use a real email address.</p>
+        <p class="form-comment">WaiverKit sends out a copy of the agreement, so be sure to use a real email address.</p>
       </div>
 
       <div class="form-row">
         <div class="form-label">
-          <label>Sign your name</label>
+          <label for="phone">What’s your phone number?</label>
         </div>
         <div class="form-field">
-          <button class="js-sig-reset sig-reset hidden"></button>
-          <canvas class="js-sig-canvas sig" width="444" height="125"></canvas>
-          <input type="hidden" class="js-sig" name="signature">
+          <input type="tel"
+                 pattern="[0-9]{2}[0-9]{4}[0-9]{4}"
+                 id="phone"
+                 name="phone"
+                 class="c-input"
+                 size="40"
+                 placeholder="<%= exampleData.phone %>"
+                 oninvalid="this.setCustomValidity('Please enter a valid phone number. \(07-8907-8358\)')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+        <p class="form-comment">Our waiver document requires a phone number, but we will only use it in case of an emergency</p>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="dob">What’s your date of birth?</label>
+        </div>
+        <div class="form-field">
+          <input type="date"
+                 id="dob"
+                 name="dob"
+                 class="c-input"
+                 size="40"
+                 maxlength="100"
+                 placeholder="<%= exampleData.dob %>"
+                 oninvalid="this.setCustomValidity('Please enter your date of birth.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="u18">I am under 18 years of age and are not legally emancipated</label>
+        </div>
+        <div class="form-field">
+          <input type="checkbox"
+                 id="u18"
+                 name="u18"
+                 oninvalid="this.setCustomValidity('Please contact brunoblaise94@gmail.com if you are over 18 or are legally emancipated.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+        <p class="form-comment">Please contact brunoblaise94@gmail.com if this is not the case</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="dob">What’s your address?</label>
+        </div>
+        <div class="form-field">
+          <input type="text"
+                 id="address"
+                 name="address"
+                 class="c-input"
+                 size="40"
+                 maxlength="100"
+                 placeholder="<%= exampleData.address %>"
+                 oninvalid="this.setCustomValidity('Please enter your home address.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="dob">What city do you live in?</label>
+        </div>
+        <div class="form-field">
+          <input type="text"
+                 id="city"
+                 name="city"
+                 class="c-input"
+                 size="40"
+                 maxlength="100"
+                 placeholder="<%= exampleData.city %>"
+                 oninvalid="this.setCustomValidity('Please enter your home city.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="state">What province do you live in?</label>
+        </div>
+        <div class="form-field">
+          <select id="state"
+                  name="state"
+                  class="c-select"
+                  oninvalid="this.setCustomValidity('Please select your home state.')"
+                  oninput="setCustomValidity('')"
+                  required>
+              <option value="" selected>Please select a province</option>
+              <option value="KG">Kigali</option>
+              <option value="NOR">Northern</option>
+              <option value="WER">Western</option>
+              <option value="SOU">Southern</option>
+              <option value="EAS">Eastern</option>
+            </select>
+        </div>
+      </div>
+
+  
+      <h3>Parent/Guardian</h3>
+
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="parentName">What’s your parent or guardian's name?</label>
+        </div>
+        <div class="form-field">
+          <input type="text"
+                 id="parentName"
+                 name="parentName"
+                 class="c-input"
+                 size="40"
+                 maxlength="100"
+                 placeholder="<%= exampleData.parentName %>"
+                 oninvalid="this.setCustomValidity('Please enter your parent/guardian\'s full name.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="parentEmail">What’s your parent/guardian's email address?</label>
+        </div>
+        <div class="form-field">
+          <input type="email"
+                 id="parentEmail"
+                 name="parentEmail"
+                 class="c-input"
+                 size="40"
+                 placeholder="<%= exampleData.parentEmail %>"
+                 oninvalid="this.setCustomValidity('Please enter a valid email address.')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+        <p class="form-comment">WaiverKit sends out a copy of the agreement, so be sure to use a real email address.</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label for="phone">What’s your parent/guardian's phone number?</label>
+        </div>
+        <div class="form-field">
+          <input type="tel"
+               
+                 id="parentPhone"
+                 name="parentPhone"
+                 class="c-input"
+                 size="40"
+                 placeholder="<%= exampleData.parentPhone %>"
+                 oninvalid="this.setCustomValidity('Please enter a valid phone number. \(07-9898-6765\)')"
+                 oninput="setCustomValidity('')"
+                 required>
+        </div>
+        <p class="form-comment">Our waiver document requires a phone number, but we will only use it in case of an emergency</p>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label>Parent/Guardian signature</label>
+        </div>
+        <div class="form-field">
+          <button class="js-sig-reset sig-reset hidden" for="parentSignature"></button>
+          <canvas class="js-sig-canvas sig" for="parentSignature" width="444" height="125"></canvas>
+          <input type="hidden" class="js-sig" name="parentSignature">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-label">
+          <label>Sign your <b>initials</b></label>
+        </div>
+        <div class="form-field">
+          <button class="js-sig-reset sig-reset hidden" for="initials"></button>
+          <canvas class="js-sig-canvas sig" for="initials" width="444" height="125"></canvas>
+          <input type="hidden" class="js-sig" name="initials">
         </div>
       </div>
 
       <div class="form-submit">
-        <input class="c-submit js-submit" type="submit" value="Sign Agreement" disabled>
+        <input class="c-submit js-submit" type="submit" value="Sign Waiver" disabled>
       </div>
     </form>
   </div>

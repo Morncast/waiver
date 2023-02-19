@@ -1,24 +1,48 @@
 var submit = document.querySelector('.js-submit');
+submit.disabled = true
 
 // Create Signature Canvas
-var signatureCanvas = document.querySelector('.js-sig-canvas');
-var signaturePad = new SignaturePad(signatureCanvas, {
-  minWidth: 1,
-  maxWidth: 1,
-  onBegin: function() {
-    sigReset.classList.remove('hidden');
-    submit.disabled = false;
-  },
-  onEnd: function() {
-    document.querySelector('.js-sig').value = signaturePad.toDataURL();
-  }
-});
+var signatureCanvases = document.querySelectorAll('.js-sig-canvas');
+let statusArray = [];
 
-// Reset Signature button
-var sigReset = document.querySelector('.js-sig-reset');
-sigReset.addEventListener('click', function(event) {
-  event.preventDefault();
-  signaturePad.clear();
-  this.classList.add('hidden');
-  submit.disabled = true;
-})
+for(let i = 0; i < signatureCanvases.length; i++) {
+  const signatureCanvas = signatureCanvases[i];
+
+  statusArray.push(true)
+
+  let signaturePad = new SignaturePad(signatureCanvas, {
+    maxWidth: 2.25
+  });
+  
+  signaturePad.addEventListener('beginStroke', function() {
+      document.querySelector('.js-sig-reset[for=' + signatureCanvas.getAttribute("for")  + ']').classList.remove('hidden');
+      statusArray[i] = false;
+      console.log(signatureCanvases)
+      console.log(statusArray)
+      console.log(signatureCanvas)
+  })
+  signaturePad.addEventListener('endStroke', function() {
+      document.querySelector('.js-sig[name=' + signatureCanvas.getAttribute("for") + ']').value = signaturePad.toDataURL();
+      if(statusArray.every((val) => val == false ) && statusArray.length == signatureCanvases.length) {
+        submit.disabled = false;
+      }
+  })
+
+  // Reset Signature button
+  document.querySelector('.js-sig-reset[for=' + signatureCanvas.getAttribute("for") + ']').addEventListener('click', function(event) {
+    event.preventDefault();
+    signaturePad.clear();
+    this.classList.add('hidden');
+    statusArray[i] = true;
+    submit.disabled = true
+
+    if(statusArray.every((val) => val == false ) && statusArray.length == signatureCanvases.length) {
+      submit.disabled = false;
+    }
+
+    console.log(signatureCanvases)
+    console.log(statusArray)
+    console.log(signatureCanvas)
+  })
+
+}

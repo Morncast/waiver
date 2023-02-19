@@ -3,11 +3,12 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const fs = require('fs')
-const pdf = require('html-pdf')
+const { chromium } = require('@playwright/test')
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const _ = require('lodash')
 const moment = require('moment')
+const axios = require('axios');
 
 // Cache agreement template
 const agreement = fs.readFileSync(`${__dirname}/views/agreement.ejs`, 'utf8')
@@ -45,31 +46,66 @@ app.get('/', (req, res) => {
 /**
  * Sign document express route
  */
-app.post('/sign', (req, res) => {
+app.post('/sign', async (req, res) => {
   const template = ejs.compile(agreement)
   req.body.date = moment().format('MMMM Do, YYYY')
 
-  createDocument(template(req.body), (pdfAgreement) => {
+  const pdfAgreement = await createDocument(template(req.body))
     req.body.agreement = pdfAgreement
     res.render('success', _.merge(viewData, req.body))
 
     sendEmails(req.body)
-  })
+  
+    const fmtBody = {
+        participant: {
+            name: req.body.name,
+            email: req.body.email,
+            phone: req.body.phone,
+            dob: req.body.dob,
+            initials: req.body.initials,
+            signature: req.body.signature
+        },
+        parent: {
+            name: req.body.parentName,
+            email: req.body.parentEmail,
+            phone: req.body.parentPhone, 
+            signature: req.body.parentSignature,
+        },
+        address: {
+            street: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            zip: req.body.zip
+        },
+        date: req.body.date,
+        agreement: req.body.agreement
+    }
+    
+    await axios.post("https://high-weasel-42.deno.dev", fmtBody)
 })
 
 
 /**
  * Generate example agreement
  */
-app.get('/example.pdf', (req, res) => {
+app.get('/example.pdf', async (req, res) => {
   const template = ejs.compile(agreement)
   const data = viewData.exampleData
   data.date = moment().format('MMMM Do, YYYY')
 
-  createDocument(template(data), (pdf) => {
-    res.contentType("application/pdf");
-    res.end(pdf, 'base64');
-  })
+  const pdf = await createDocument(template(data)) 
+  res.contentType("application/pdf");
+  res.end(pdf, 'base64');
+
+})
+
+app.get('/example.html', async (req, res) => {
+  const template = ejs.compile(agreement)
+  const data = viewData.exampleData
+  data.date = moment().format('MMMM Do, YYYY')
+
+  res.end(template(data))
+
 })
 
 
@@ -86,14 +122,14 @@ app.listen(process.env.PORT || 3000, () => console.log('PactMaker is up and runn
 function sendEmails(data) {
   const attachment = {
     'Content': data.agreement,
-    'Name': `${data.company}_${data.date}.pdf`,
+    'Name': `Kigali Hacks Liability Waiver_${data.date}.pdf`,
     'ContentType': 'application/pdf'
   }
 
   // Send email to customer
   client.sendEmail({
     'From': process.env.POSTMARK_FROM_ADDRESS,
-    'To': data.email,
+    'To': `${data.email}, ${data.parentEmail}`,
     'Subject': signeeSubject(data),
     'HtmlBody': emailContentSignee(data),
     'Attachments': [attachment]
@@ -106,6 +142,7 @@ function sendEmails(data) {
     console.log('Email sent:')
     console.log(results)
   })
+
 
   // Send email notification to internal team
   if (process.env.INTERNAL_EMAIL_RECIPIENTS) {
@@ -137,17 +174,38 @@ function sendEmails(data) {
  * @param  {Object}   content  HTMl content content
  * @param  {Function} callback Callback containing the encoded PDF buffer
  */
-function createDocument(content, callback) {
+async function createDocument(content, callback) {
 
-  /* https://www.npmjs.com/package/html-pdf for more PDF options */
-  const options = {
-    border: '1in'
-  }
+  let dataUrl = "data:text/html;base64," + btoa(unescape(encodeURIComponent(content)))
 
-  pdf.create(content, options).toBuffer((err, buffer) => {
-    callback(buffer.toString('base64'))
+  const browser = await chromium.launch({
+    headless: true
+  });
+  const context = await browser.newContext();
+  
+  // Create a page.
+  const page = await context.newPage();
+
+  await page.goto(dataUrl)
+
+  const pdf = await page.pdf({
+    format: "letter",
+    landscape: false,
+    margin: {
+      top: "48px",
+      bottom: "48px",
+      left: "48px",
+      right: "48px"
+    }
   })
+
+
+  return pdf.toString('base64');
 }
+
+
+
+
 
 
 /**
